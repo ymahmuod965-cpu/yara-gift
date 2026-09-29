@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أغلى ما في حياتي 💖</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #feada6 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.93);
+            backdrop-filter: blur(10px);
+            padding: 35px 20px;
+            border-radius: 35px;
+            box-shadow: 0 15px 35px rgba(220, 53, 69, 0.2);
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            text-align: center;
+            max-width: 390px;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .heart-icon {
+            font-size: 75px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 26px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .romantic-text {
+            font-size: 16px;
+            color: #b02a37;
+            font-weight: 600;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 65, 108, 0.4);
+        }
+
+        .btn-start:active {
+            transform: scale(0.97);
+        }
+
+        .btn-later {
+            background-color: #a8a8a8;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .gift-content {
+            display: none;
+        }
+
+        .gift-content.active {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .main-content.hidden {
+            display: none;
+        }
+
+        .music-player-box {
+            margin-top: 15px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+            border-radius: 20px;
+        }
+
+        .playlist-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .song-btn {
+            background: #fff;
+            color: #d63384;
+            border: 2px solid #f8d7da;
+            padding: 10px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .song-btn.active-song {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            border-color: transparent;
+        }
+
+        .floating-element {
+            position: absolute;
+            animation: float 5s linear infinite;
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <!-- الواجهة الرئيسية -->
+        <div id="mainContent" class="main-content">
+            <span class="heart-icon">💖</span>
+            <h1>جاهزة للهدية يا يارا؟</h1>
+            <p>عملتلك المفاجأة دي مخصوص عشانك.. اختاري بعناية، لأن زرار "مش دلوقتي" بيهرب ومستحيل تمسكيه! 😉🌹</p>
+
+            <div class="btn-container">
+                <button class="btn btn-start" onclick="openGift()">افتحي الهدية 🎁❤️</button>
+                <button id="noBtn" class="btn btn-later" onclick="spinAndMove()" onmouseover="spinAndMove()" ontouchstart="spinAndMove()">مش دلوقتي 🙈</button>
+            </div>
+        </div>
+
+        <!-- صفحة الهدية الرومانسية -->
+        <div id="giftContent" class="gift-content">
+            <span class="heart-icon">🌹✨</span>
+            <h1>كل سنة وأنتِ حبيب أشيائي!</h1>
+            <p class="romantic-text">وجودك في حياتي بيخلي كل حاجة ألمع وأجمل.. الأغاني دي إهداء خاص لقلبك ❤️</p>
+            
+            <!-- مشغل يوتيوب المباشر -->
+            <div class="music-player-box">
+                <iframe id="youtubePlayer" src="https://www.youtube.com/embed/PDEyWpgP-Tc?autoplay=1&enablejsapi=1" allow="autoplay"></iframe>
+            </div>
+
+            <!-- قائمة الأغاني بالروابط الخاصة بك -->
+            <div class="playlist-buttons">
+                <button class="song-btn active-song" onclick="changeSong('PDEyWpgP-Tc', 0)" id="song0">🎶 الأغنية الأولى</button>
+                <button class="song-btn" onclick="changeSong('MjqXocU94rs', 1)" id="song1">🌸 الأغنية الثانية</button>
+                <button class="song-btn" onclick="changeSong('3elVQh4hz3M', 2)" id="song2">🧸 الأغنية الثالثة</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRotation = 0;
+
+        function spinAndMove() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth - 40);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight - 40);
+            currentRotation += 360;
+
+            btn.style.position = 'fixed';
+            btn.style.left = Math.max(20, x) + 'px';
+            btn.style.top = Math.max(20, y) + 'px';
+            btn.style.transform = `rotate(${currentRotation}deg)`;
+        }
+
+        function openGift() {
+            document.getElementById('mainContent').classList.add('hidden');
+            document.getElementById('giftContent').classList.add('active');
+            setInterval(createFloatingElement, 250);
+        }
+
+        function changeSong(youtubeId, index) {
+            const player = document.getElementById('youtubePlayer');
+            player.src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+
+            for (let i = 0; i < 3; i++) {
+                const btn = document.getElementById(`song${i}`);
+                if (i === index) {
+                    btn.classList.add('active-song');
+                } else {
+                    btn.classList.remove('active-song');
+                }
+            }
+        }
+
+        function createFloatingElement() {
+            const el = document.createElement('div');
+            el.classList.add('floating-element');
+            const icons = ['❤️', '💖', '🌹', '✨', '💕', '🌸'];
+            el.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 15 + 18) + 'px';
+            el.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(el);
+
+            setTimeout(() => {
+                el.remove();
+            }, 4500);
+        }
+    </script>
+
+</body>
+</html>
